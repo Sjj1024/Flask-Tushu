@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="post">
+    {{ form.csrf_token() }}
+    {{ form.username.label }} {{ form.username }}<br/>
+    {{ form.bookname.label }} {{ form.bookname }}<br/>
+    {{ form.submit }}
+</form>
+    {#  图书存在的话闪现一个消息  #}
+    {% for foo in get_flashed_messages() %}
+        {{ foo }}
+    {% endfor %}
+<h3>老王图书展示:</h3>
+<ul>
+    {% for auth in author %}
+        <li>{{ auth.name }}<a href="/delauth/{{ auth.id }}">删除</a></li>
+        <ol>
+            {% for book in auth.authors %}
+                <li>{{ book.name }}<a href="/delbook/{{ book.id }}">删除</a></li>
+            {% endfor %}
+        </ol>
+    {% endfor %}
+</ul>
+</body>
+</html>
